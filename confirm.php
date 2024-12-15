@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -52,10 +52,10 @@ $pageparams = array_filter($pageparams);
 $PAGE->set_pagelayout('admin');
 $url = new moodle_url('/local/purgequestioncategory/category.php', $pageparams);
 $PAGE->set_url($url);
-$PAGE->set_title(get_string('confirmpurge', 'local_purgequestioncategory'));
+$PAGE->set_title(get_string('confirmpurge', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
-$qcobject = new local_purgequestioncategory_question_category_object(0, $url, array(), 0, $categoryid, 0, array());
+$qcobject = new qbank_purgecategory_question_category_object(0, $url, array(), 0, $categoryid, 0, array());
 
 $category->subcategories = $qcobject->get_subcategories_count($category->id);
 $category->totalquestions = $qcobject->get_questions_count($category->id);
@@ -63,7 +63,7 @@ $category->usedquestions = $qcobject->get_used_questions_count($category->id);
 $category->unusedquestions = $category->totalquestions - $category->usedquestions;
 
 $url = new moodle_url('/local/purgequestioncategory/confirm.php');
-$mform = new local_purgequestioncategory_confirm_form($url, array('category' => $category));
+$mform = new qbank_purgecategory_confirm_form($url, array('category' => $category));
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/local/purgequestioncategory/category.php', $pageparams));

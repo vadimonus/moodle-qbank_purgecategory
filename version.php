@@ -17,14 +17,14 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_purgequestioncategory';
+$plugin->component = 'qbank_purgecategory';
 $plugin->version   = 2020061200;
 $plugin->release = '1.3';
 $plugin->maturity = MATURITY_STABLE;

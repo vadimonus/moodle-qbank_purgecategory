@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,9 +31,9 @@ defined('MOODLE_INTERNAL') || die();
  * @param stdClass $course frontpage course object
  * @param context $context frontpage course context object
  */
-function local_purgequestioncategory_extend_navigation_frontpage(navigation_node $coursenode, stdClass $course,
+function qbank_purgecategory_extend_navigation_frontpage(navigation_node $coursenode, stdClass $course,
         context $context) {
-    local_purgequestioncategory_extend_navigation_course($coursenode, $course, $context);
+    qbank_purgecategory_extend_navigation_course($coursenode, $course, $context);
 }
 
 /**
@@ -43,7 +43,7 @@ function local_purgequestioncategory_extend_navigation_frontpage(navigation_node
  * @param stdClass $course course object
  * @param context $context course context object
  */
-function local_purgequestioncategory_extend_navigation_course(navigation_node $coursenode, stdClass $course,
+function qbank_purgecategory_extend_navigation_course(navigation_node $coursenode, stdClass $course,
         context $context) {
     if (!has_capability('local/purgequestioncategory:purgecategory', $context)) {
         return;
@@ -59,7 +59,7 @@ function local_purgequestioncategory_extend_navigation_course(navigation_node $c
         return;
     }
     $url = new moodle_url('/local/purgequestioncategory/category.php', array('courseid' => $context->instanceid));
-    $questionbank->add(get_string('purgecategories', 'local_purgequestioncategory'), $url, navigation_node::TYPE_SETTING,
+    $questionbank->add(get_string('purgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
             null, 'purgequestioncategory');
 }
 
@@ -69,7 +69,7 @@ function local_purgequestioncategory_extend_navigation_course(navigation_node $c
  * @param navigation_node $nav navigation node object
  * @param context $context course context object
  */
-function local_purgequestioncategory_extend_settings_navigation(navigation_node $nav, context $context) {
+function qbank_purgecategory_extend_settings_navigation(navigation_node $nav, context $context) {
     if (!has_capability('local/purgequestioncategory:purgecategory', $context)) {
         return;
     }
@@ -88,6 +88,6 @@ function local_purgequestioncategory_extend_settings_navigation(navigation_node 
         return;
     }
     $url = new moodle_url('/local/purgequestioncategory/category.php', array('cmid' => $context->instanceid));
-    $questionbank->add(get_string('purgecategories', 'local_purgequestioncategory'), $url, navigation_node::TYPE_SETTING,
+    $questionbank->add(get_string('purgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
             null, 'purgequestioncategory');
 }

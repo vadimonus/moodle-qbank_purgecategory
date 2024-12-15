@@ -22,8 +22,8 @@ Author
 
 Links
 -----
-- Updates: https://moodle.org/plugins/view.php?plugin=local_purgequestioncategory
-- Latest code: https://github.com/vadimonus/moodle-local_purgequestioncategory
+- Updates: https://moodle.org/plugins/view.php?plugin=qbank_purgecategory
+- Latest code: https://github.com/vadimonus/moodle-qbank_purgecategory
 
 Changes
 -------

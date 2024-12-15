@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -30,11 +30,11 @@ require_once("$CFG->dirroot/question/editlib.php");
 /**
  * Class representing custom category list item
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_purgequestioncategory_question_category_list_item extends question_category_list_item {
+class qbank_purgecategory_question_category_list_item extends question_category_list_item {
 
     /**
      * Creating list without icons.
@@ -76,8 +76,8 @@ class local_purgequestioncategory_question_category_list_item extends question_c
             $params = array_filter($params);
 
             $purgeurl = new moodle_url('/local/purgequestioncategory/confirm.php', $params);
-            $text = get_string('purgethiscategory', 'local_purgequestioncategory');
-            $icon = new pix_icon('purge', $text, 'local_purgequestioncategory');
+            $text = get_string('purgethiscategory', 'qbank_purgecategory');
+            $icon = new pix_icon('purge', $text, 'qbank_purgecategory');
             $item .= '&nbsp;';
             $item .= $OUTPUT->action_link($purgeurl, '', null, array(), $icon);
         }

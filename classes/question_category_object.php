@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -30,11 +30,11 @@ require_once("$CFG->dirroot/lib/questionlib.php");
 /**
  * Class representing custom question category
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_purgequestioncategory_question_category_object extends question_category_object {
+class qbank_purgecategory_question_category_object extends question_category_object {
 
     /**
      * Initializes this classes general category-related variables
@@ -49,7 +49,7 @@ class local_purgequestioncategory_question_category_object extends question_cate
     public function initialize($page, $contexts, $currentcat, $defaultcategory, $todelete, $addcontexts) {
         $lastlist = null;
         foreach ($contexts as $context) {
-            $this->editlists[$context->id] = new local_purgequestioncategory_question_category_list('ul', '', true,
+            $this->editlists[$context->id] = new qbank_purgecategory_question_category_list('ul', '', true,
                     $this->pageurl, $page, 'cpage', QUESTION_PAGE_LENGTH, $context);
             $this->editlists[$context->id]->lastlist = & $lastlist;
             if ($lastlist !== null) {
@@ -72,7 +72,7 @@ class local_purgequestioncategory_question_category_object extends question_cate
     public function output_edit_lists() {
         global $OUTPUT;
 
-        echo $OUTPUT->heading(get_string('purgecategories', 'local_purgequestioncategory'));
+        echo $OUTPUT->heading(get_string('purgecategories', 'qbank_purgecategory'));
 
         foreach ($this->editlists as $context => $list) {
             $listhtml = $list->to_html(0, array('str' => $this->str));

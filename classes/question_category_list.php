@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,15 +29,15 @@ require_once("$CFG->dirroot/question/category_class.php");
 /**
  * Class representing custom category list
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_purgequestioncategory_question_category_list extends question_category_list {
+class qbank_purgecategory_question_category_list extends question_category_list {
 
     /**
      * @var string
      */
-    public $listitemclassname = 'local_purgequestioncategory_question_category_list_item';
+    public $listitemclassname = 'qbank_purgecategory_question_category_list_item';
 
 }

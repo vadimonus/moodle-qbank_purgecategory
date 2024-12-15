@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ list($thispageurl, $contexts, $cmid, $cm, $module, $pagevars) = question_edit_se
 $url = new moodle_url($thispageurl);
 $url->remove_params(array('cpage'));
 $PAGE->set_url($url);
-$PAGE->set_title(get_string('purgecategories', 'local_purgequestioncategory'));
+$PAGE->set_title(get_string('purgecategories', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
 echo $OUTPUT->header();
@@ -44,7 +44,7 @@ if ($CFG->version >= 2016120503.00) { // Moodle 3.2.3.
     echo $renderer->extra_horizontal_navigation();
 }
 
-$qcobject = new local_purgequestioncategory_question_category_object($pagevars['cpage'], $thispageurl,
+$qcobject = new qbank_purgecategory_question_category_object($pagevars['cpage'], $thispageurl,
         $contexts->having_cap('local/purgequestioncategory:purgecategory'), 0, $pagevars['cat'], 0, array());
 $qcobject->output_edit_lists();
 echo $OUTPUT->footer();

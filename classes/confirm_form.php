@@ -17,7 +17,7 @@
 /**
  * Tool for deleting question category with question and subcategories.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,11 +29,11 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * Form for confirmation of category purge.
  *
- * @package    local_purgequestioncategory
+ * @package    qbank_purgecategory
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_purgequestioncategory_confirm_form extends moodleform {
+class qbank_purgecategory_confirm_form extends moodleform {
 
     /**
      * Form definition.
@@ -45,7 +45,7 @@ class local_purgequestioncategory_confirm_form extends moodleform {
 
         $category = $this->_customdata['category'];
 
-        $mform->addElement('header', 'header', get_string('confirmpurge', 'local_purgequestioncategory'));
+        $mform->addElement('header', 'header', get_string('confirmpurge', 'qbank_purgecategory'));
 
         $data = new stdClass();
         $data->name = $category->name;
@@ -53,9 +53,9 @@ class local_purgequestioncategory_confirm_form extends moodleform {
         $data->usedquestions = $category->usedquestions;
         $data->unusedquestions = $category->unusedquestions;
         if ($category->usedquestions != 0) {
-            $message = get_string('infowithmove', 'local_purgequestioncategory', $data);
+            $message = get_string('infowithmove', 'qbank_purgecategory', $data);
         } else {
-            $message = get_string('infowithoutmove', 'local_purgequestioncategory', $data);
+            $message = get_string('infowithoutmove', 'qbank_purgecategory', $data);
         }
         $message = $OUTPUT->box($message, 'generalbox boxaligncenter');
         $mform->addElement('html', $message);
@@ -76,13 +76,13 @@ class local_purgequestioncategory_confirm_form extends moodleform {
             $qcategory = $mform->addElement('questioncategory', 'newcategory', get_string('category', 'question'), $options);
         }
 
-        $message = $OUTPUT->box(get_string('confirmmessage', 'local_purgequestioncategory', $data), 'generalbox boxaligncenter');
+        $message = $OUTPUT->box(get_string('confirmmessage', 'qbank_purgecategory', $data), 'generalbox boxaligncenter');
         $mform->addElement('html', $message);
 
-        $mform->addElement('checkbox', 'confirm', '', get_string('iconfirm', 'local_purgequestioncategory'));
+        $mform->addElement('checkbox', 'confirm', '', get_string('iconfirm', 'qbank_purgecategory'));
         $mform->setType('confirm', PARAM_INT);
 
-        $this->add_action_buttons(true, get_string('purgethiscategory', 'local_purgequestioncategory'));
+        $this->add_action_buttons(true, get_string('purgethiscategory', 'qbank_purgecategory'));
     }
 
     /**
@@ -99,11 +99,11 @@ class local_purgequestioncategory_confirm_form extends moodleform {
         if ($category->usedquestions != 0) {
             $top = "0,$category->contextid";
             if ($data['newcategory'] == $top) {
-                $errors['newcategory'] = get_string('validationcategory', 'local_purgequestioncategory');
+                $errors['newcategory'] = get_string('validationcategory', 'qbank_purgecategory');
             }
         }
         if (!isset($data['confirm']) || $data['confirm'] != 1) {
-            $errors['confirm'] = get_string('validationconfirm', 'local_purgequestioncategory');;
+            $errors['confirm'] = get_string('validationconfirm', 'qbank_purgecategory');;
         }
 
         return $errors;
