@@ -45,7 +45,7 @@ function qbank_purgecategory_extend_navigation_frontpage(navigation_node $course
  */
 function qbank_purgecategory_extend_navigation_course(navigation_node $coursenode, stdClass $course,
         context $context) {
-    if (!has_capability('local/purgequestioncategory:purgecategory', $context)) {
+    if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
         return;
     }
     $questionbank = null;
@@ -70,7 +70,7 @@ function qbank_purgecategory_extend_navigation_course(navigation_node $coursenod
  * @param context $context course context object
  */
 function qbank_purgecategory_extend_settings_navigation(navigation_node $nav, context $context) {
-    if (!has_capability('local/purgequestioncategory:purgecategory', $context)) {
+    if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
         return;
     }
     if ($context->contextlevel != CONTEXT_MODULE) {

@@ -45,6 +45,6 @@ if ($CFG->version >= 2016120503.00) { // Moodle 3.2.3.
 }
 
 $qcobject = new qbank_purgecategory_question_category_object($pagevars['cpage'], $thispageurl,
-        $contexts->having_cap('local/purgequestioncategory:purgecategory'), 0, $pagevars['cat'], 0, array());
+        $contexts->having_cap('qbank/purgecategory:purgecategory'), 0, $pagevars['cat'], 0, array());
 $qcobject->output_edit_lists();
 echo $OUTPUT->footer();
