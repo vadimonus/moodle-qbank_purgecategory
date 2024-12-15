@@ -75,7 +75,7 @@ class qbank_purgecategory_question_category_list_item extends question_category_
             $params['courseid'] = optional_param('courseid', null, PARAM_INT);
             $params = array_filter($params);
 
-            $purgeurl = new moodle_url('/local/purgequestioncategory/confirm.php', $params);
+            $purgeurl = new moodle_url('/question/bank/purgecategory/confirm.php', $params);
             $text = get_string('purgethiscategory', 'qbank_purgecategory');
             $icon = new pix_icon('purge', $text, 'qbank_purgecategory');
             $item .= '&nbsp;';

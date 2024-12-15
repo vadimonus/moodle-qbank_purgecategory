@@ -28,7 +28,7 @@ require_once("$CFG->dirroot/question/editlib.php");
 require_login();
 
 list($thispageurl, $contexts, $cmid, $cm, $module, $pagevars) = question_edit_setup('categories',
-        '/local/purgequestioncategory/category.php');
+        '/question/bank/purgecategory/category.php');
 
 $url = new moodle_url($thispageurl);
 $url->remove_params(array('cpage'));

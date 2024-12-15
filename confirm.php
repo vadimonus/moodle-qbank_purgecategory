@@ -50,7 +50,7 @@ if ($pageparams['cmid']) {
 $pageparams = array_filter($pageparams);
 
 $PAGE->set_pagelayout('admin');
-$url = new moodle_url('/local/purgequestioncategory/category.php', $pageparams);
+$url = new moodle_url('/question/bank/purgecategory/category.php', $pageparams);
 $PAGE->set_url($url);
 $PAGE->set_title(get_string('confirmpurge', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
@@ -62,11 +62,11 @@ $category->totalquestions = $qcobject->get_questions_count($category->id);
 $category->usedquestions = $qcobject->get_used_questions_count($category->id);
 $category->unusedquestions = $category->totalquestions - $category->usedquestions;
 
-$url = new moodle_url('/local/purgequestioncategory/confirm.php');
+$url = new moodle_url('/question/bank/purgecategory/confirm.php');
 $mform = new qbank_purgecategory_confirm_form($url, array('category' => $category));
 
 if ($mform->is_cancelled()) {
-    redirect(new moodle_url('/local/purgequestioncategory/category.php', $pageparams));
+    redirect(new moodle_url('/question/bank/purgecategory/category.php', $pageparams));
 } else if ($data = $mform->get_data()) {
     require_sesskey();
     if (isset($data->confirm)) {
@@ -77,7 +77,7 @@ if ($mform->is_cancelled()) {
             $qcobject->purge_category($category->id);
         }
     }
-    redirect(new moodle_url('/local/purgequestioncategory/category.php', $pageparams));
+    redirect(new moodle_url('/question/bank/purgecategory/category.php', $pageparams));
 }
 echo $OUTPUT->header();
 $mform->display();
