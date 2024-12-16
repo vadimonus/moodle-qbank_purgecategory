@@ -32,5 +32,6 @@ $string['privacy:metadata'] = 'The plugin does not store any personal data.';
 $string['purgecategories'] = 'Purge categories';
 $string['purgecategory:purgecategory'] = 'Delete question category with all qustions and subcategories';
 $string['purgethiscategory'] = 'Purge this category';
+$string['qbankpurgecategories'] = 'Question bank: Purge categories';
 $string['validationcategory'] = 'Please select valid category';
 $string['validationconfirm'] = 'You have to confirm this action';

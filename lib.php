@@ -45,49 +45,30 @@ function qbank_purgecategory_extend_navigation_frontpage(navigation_node $course
  */
 function qbank_purgecategory_extend_navigation_course(navigation_node $coursenode, stdClass $course,
         context $context) {
-    if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
+    global $CFG, $PAGE;
+
+    if ($CFG->version >= 2023100900.00) { // Moodle 4.3
+        // Since Moodle 4.3 question bank action menu can show plugins.
         return;
     }
-    $questionbank = null;
-    foreach ($coursenode->children as $node) {
-        if ($node->text == get_string('questionbank', 'question')) {
-            $questionbank = $node;
-            break;
-        }
-    }
-    if (!$questionbank) {
+
+    if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
         return;
     }
     $url = new moodle_url('/question/bank/purgecategory/category.php', array('courseid' => $context->instanceid));
-    $questionbank->add(get_string('purgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
-            null, 'purgequestioncategory');
-}
+    $coursenode->add(get_string('qbankpurgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
+            null, 'qbankpurgecategory');
 
-/**
- * Adds purgecategory item into question bank in quiz module.
- *
- * @param navigation_node $nav navigation node object
- * @param context $context course context object
- */
-function qbank_purgecategory_extend_settings_navigation(navigation_node $nav, context $context) {
+    // Quiz module navigation.
+    if (!$PAGE->cm || $PAGE->cm->modname != 'quiz') {
+        return;
+    }
+    $context = $PAGE->cm->context;
     if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
         return;
     }
-    if ($context->contextlevel != CONTEXT_MODULE) {
-        return;
-    }
-    $parentnode = $nav->get('modulesettings');
-    $questionbank = null;
-    foreach ($parentnode->children as $node) {
-        if ($node->text == get_string('questionbank', 'question')) {
-            $questionbank = $node;
-            break;
-        }
-    }
-    if (!$questionbank) {
-        return;
-    }
+    $parentnode = $coursenode->parent->get('modulesettings');
     $url = new moodle_url('/question/bank/purgecategory/category.php', array('cmid' => $context->instanceid));
-    $questionbank->add(get_string('purgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
-            null, 'purgequestioncategory');
+    $parentnode->add(get_string('qbankpurgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
+        null, 'qbankpurgecategory');
 }

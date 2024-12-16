@@ -32,5 +32,6 @@ $string['privacy:metadata'] = 'Плагин не хранит персональ
 $string['purgecategories'] = 'Полное удаление категорий';
 $string['purgecategory:purgecategory'] = 'Удалять категорию вопросов вместе со всеми подкатегориями и вопросами';
 $string['purgethiscategory'] = 'Полностью удалить эту категорию';
+$string['qbankpurgecategories'] = 'Банк вопросов: Полное удаление категорий';
 $string['validationcategory'] = 'Пожалуйста, выберите корректную категорию.';
 $string['validationconfirm'] = 'Вы должны подтвердить это действие';
