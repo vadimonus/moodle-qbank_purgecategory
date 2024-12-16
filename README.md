@@ -3,7 +3,7 @@ Purge question category Moodle plugin
 
 Requirements
 ------------
-- Moodle 3.0 (build 2015111600) or later.
+- Moodle 4.0 (build 2022041900) or later.
 
 Installation
 ------------
@@ -40,5 +40,6 @@ Changes
   - Question bank tabs.
   - Fix error message after deleting questions in category and system contexts. 
   - Fix error after deprecating of question_is_only_toplevel_category_in_context.
-- Release 2.0
-    - Renamed from local_purgequestioncategory to qbank_purgecategory
+- Release 2.0 (build 2025012600)
+  - Renamed from local_purgequestioncategory to qbank_purgecategory.
+  - Refactored for Moodle 4 question bank changes.
