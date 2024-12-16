@@ -22,7 +22,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace qbank_purgecategory;
+
 use core_question\local\bank\helper as core_question_local_bank_helper;
+use core_question\output\qbank_action_menu;
+use moodle_url;
 
 require_once("../../../config.php");
 require_once("$CFG->dirroot/question/editlib.php");
@@ -44,7 +48,7 @@ $renderer = $PAGE->get_renderer('core_question', 'bank');
 $qbankaction = new qbank_action_menu($thispageurl);
 echo $renderer->render($qbankaction);
 
-$qcobject = new qbank_purgecategory_question_category_object($pagevars['cpage'], $thispageurl,
+$qcobject = new question_category_object($pagevars['cpage'], $thispageurl,
         $contexts->having_cap('qbank/purgecategory:purgecategory'), 0, $pagevars['cat'], 0, array());
 $qcobject->output_edit_lists();
 echo $OUTPUT->footer();

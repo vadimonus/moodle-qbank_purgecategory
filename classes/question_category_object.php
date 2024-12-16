@@ -22,10 +22,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace qbank_purgecategory;
 
-require_once("$CFG->dirroot/question/category_class.php");
-require_once("$CFG->dirroot/lib/questionlib.php");
+use context;
+use qbank_managecategories\question_category_object as base_question_category_object;
 
 /**
  * Class representing custom question category
@@ -34,7 +34,7 @@ require_once("$CFG->dirroot/lib/questionlib.php");
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qbank_purgecategory_question_category_object extends question_category_object {
+class question_category_object extends base_question_category_object {
 
     /**
      * Initializes this classes general category-related variables
@@ -46,10 +46,10 @@ class qbank_purgecategory_question_category_object extends question_category_obj
      * @param int $todelete
      * @param array $addcontexts
      */
-    public function initialize($page, $contexts, $currentcat, $defaultcategory, $todelete, $addcontexts) {
+    public function initialize($page, $contexts, $currentcat, $defaultcategory, $todelete, $addcontexts): void {
         $lastlist = null;
         foreach ($contexts as $context) {
-            $this->editlists[$context->id] = new qbank_purgecategory_question_category_list('ul', '', true,
+            $this->editlists[$context->id] = new question_category_list('ul', '', true,
                     $this->pageurl, $page, 'cpage', QUESTION_PAGE_LENGTH, $context);
             $this->editlists[$context->id]->lastlist = & $lastlist;
             if ($lastlist !== null) {
@@ -69,7 +69,7 @@ class qbank_purgecategory_question_category_object extends question_category_obj
      * Outputs a list to allow editing/rearranging of existing categories
      * $this->initialize() must have already been called
      */
-    public function output_edit_lists() {
+    public function output_edit_lists(): void {
         global $OUTPUT;
 
         echo $OUTPUT->heading(get_string('purgecategories', 'qbank_purgecategory'));

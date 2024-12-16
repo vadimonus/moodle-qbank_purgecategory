@@ -22,10 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace qbank_purgecategory;
+
+use context;
 use core_question\local\bank\helper as core_question_local_bank_helper;
+use moodle_url;
 
 require_once("../../../config.php");
-require_once("$CFG->dirroot/question/editlib.php");
 
 require_login();
 core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
@@ -58,7 +61,7 @@ $PAGE->set_url($url);
 $PAGE->set_title(get_string('confirmpurge', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
-$qcobject = new qbank_purgecategory_question_category_object(0, $url, array(), 0, $categoryid, 0, array());
+$qcobject = new question_category_object(0, $url, array(), 0, $categoryid, 0, array());
 
 $category->subcategories = $qcobject->get_subcategories_count($category->id);
 $category->totalquestions = $qcobject->get_questions_count($category->id);
@@ -66,7 +69,7 @@ $category->usedquestions = $qcobject->get_used_questions_count($category->id);
 $category->unusedquestions = $category->totalquestions - $category->usedquestions;
 
 $url = new moodle_url('/question/bank/purgecategory/confirm.php');
-$mform = new qbank_purgecategory_confirm_form($url, array('category' => $category));
+$mform = new confirm_form($url, array('category' => $category));
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/question/bank/purgecategory/category.php', $pageparams));

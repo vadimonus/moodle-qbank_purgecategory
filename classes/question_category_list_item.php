@@ -22,10 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace qbank_purgecategory;
 
-require_once("$CFG->dirroot/question/category_class.php");
-require_once("$CFG->dirroot/question/editlib.php");
+use html_writer;
+use moodle_url;
+use pix_icon;
+use qbank_managecategories\helper as qbank_managecategories_helper;
+use qbank_managecategories\question_category_list_item as base_question_category_list_item;
 
 /**
  * Class representing custom category list item
@@ -34,7 +37,7 @@ require_once("$CFG->dirroot/question/editlib.php");
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qbank_purgecategory_question_category_list_item extends question_category_list_item {
+class question_category_list_item extends base_question_category_list_item {
 
     /**
      * Creating list without icons.
@@ -43,7 +46,7 @@ class qbank_purgecategory_question_category_list_item extends question_category_
      * @param bool $last
      * @param stdClass $lastitem
      */
-    public function set_icon_html($first, $last, $lastitem) {
+    public function set_icon_html($first, $last, $lastitem): void {
     }
 
     /**
@@ -52,7 +55,7 @@ class qbank_purgecategory_question_category_list_item extends question_category_
      * @param array $extraargs
      * @return string
      */
-    public function item_html($extraargs = array()) {
+    public function item_html($extraargs = array()): string {
         global $CFG, $OUTPUT;
         $category = $this->item;
 
@@ -62,12 +65,7 @@ class qbank_purgecategory_question_category_list_item extends question_category_
         $item .= format_text($category->info, $category->infoformat,
                 array('context' => $this->parentlist->context, 'noclean' => true));
 
-        // Don't allow delete if this is the last category in this context.
-        if ($CFG->version < 2018051700.00) { // Moodle 3.5.
-            $showpurgebutton = !question_is_only_toplevel_category_in_context($category->id);
-        } else {
-            $showpurgebutton = !question_is_only_child_of_top_category_in_context($category->id);
-        }
+        $showpurgebutton = !qbank_managecategories_helper::question_is_only_child_of_top_category_in_context($category->id);
         if ($showpurgebutton) {
             $params = array();
             $params['purge'] = $this->id;

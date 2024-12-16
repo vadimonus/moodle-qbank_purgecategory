@@ -22,9 +22,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace qbank_purgecategory;
 
-require_once($CFG->libdir . '/formslib.php');
+use moodleform;
+use stdClass;
 
 /**
  * Form for confirmation of category purge.
@@ -33,7 +34,7 @@ require_once($CFG->libdir . '/formslib.php');
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qbank_purgecategory_confirm_form extends moodleform {
+class confirm_form extends moodleform {
 
     /**
      * Form definition.
@@ -69,11 +70,11 @@ class qbank_purgecategory_confirm_form extends moodleform {
 
         if ($category->usedquestions != 0) {
             $options = array();
-            $options['contexts'] = array(context::instance_by_id($category->contextid));
+            $options['contexts'] = array(\context::instance_by_id($category->contextid));
             $options['top'] = true;
             $options['nochildrenof'] = "$category->id,$category->contextid";
 
-            $qcategory = $mform->addElement('questioncategory', 'newcategory', get_string('category', 'question'), $options);
+            $mform->addElement('questioncategory', 'newcategory', get_string('category', 'question'), $options);
         }
 
         $message = $OUTPUT->box(get_string('confirmmessage', 'qbank_purgecategory', $data), 'generalbox boxaligncenter');

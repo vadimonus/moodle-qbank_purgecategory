@@ -22,9 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace qbank_purgecategory;
 
-require_once("$CFG->dirroot/question/category_class.php");
+use qbank_managecategories\question_category_list as base_question_category_list;
 
 /**
  * Class representing custom category list
@@ -33,11 +33,11 @@ require_once("$CFG->dirroot/question/category_class.php");
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qbank_purgecategory_question_category_list extends question_category_list {
+class question_category_list extends base_question_category_list {
 
     /**
      * @var string
      */
-    public $listitemclassname = 'qbank_purgecategory_question_category_list_item';
+    public $listitemclassname = question_category_list_item::class;
 
 }
