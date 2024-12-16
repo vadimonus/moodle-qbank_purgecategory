@@ -40,12 +40,9 @@ $PAGE->set_title(get_string('purgecategories', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
 echo $OUTPUT->header();
-
-if ($CFG->version >= 2016120503.00) { // Moodle 3.2.3.
-    // Print horizontal nav if needed.
-    $renderer = $PAGE->get_renderer('core_question', 'bank');
-    echo $renderer->extra_horizontal_navigation();
-}
+$renderer = $PAGE->get_renderer('core_question', 'bank');
+$qbankaction = new qbank_action_menu($thispageurl);
+echo $renderer->render($qbankaction);
 
 $qcobject = new qbank_purgecategory_question_category_object($pagevars['cpage'], $thispageurl,
         $contexts->having_cap('qbank/purgecategory:purgecategory'), 0, $pagevars['cat'], 0, array());
