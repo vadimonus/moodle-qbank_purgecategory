@@ -22,10 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("../../config.php");
+use core_question\local\bank\helper as core_question_local_bank_helper;
+
+require_once("../../../config.php");
 require_once("$CFG->dirroot/question/editlib.php");
 
 require_login();
+core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
 
 $categoryid = required_param('purge', PARAM_INT);
 
