@@ -24,6 +24,10 @@
 
 namespace qbank_purgecategory;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir.'/questionlib.php');
+
 use context;
 use qbank_managecategories\question_category_object as base_question_category_object;
 
@@ -105,16 +109,13 @@ class question_category_object extends base_question_category_object {
             $this->move_and_purge_category($subcategory->id, $newcat);
         }
         // Trying to remove all unused question.
-        $questions = $DB->get_records('question', array('category' => $oldcat), 'id');
-        foreach ($questions as $question) {
-            if (questions_in_use(array($question->id))) {
-                $DB->set_field('question', 'hidden', 1, array('id' => $question->id));
-            } else {
-                question_delete_question($question->id);
-            }
+        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        foreach ($questionids as $questionid) {
+            question_delete_question($questionid);
         }
         // Move used questions to new category and delete category.
-        if ($DB->record_exists('question', array('category' => $oldcat), 'id')) {
+        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        if ($questionids) {
             $this->move_questions_and_delete_category($oldcat, $newcat);
         } else {
             $this->delete_category($oldcat);
@@ -133,16 +134,13 @@ class question_category_object extends base_question_category_object {
             $this->purge_category($subcategory->id);
         }
         // Trying to remove all unused question.
-        $questions = $DB->get_records('question', array('category' => $oldcat), 'id');
-        foreach ($questions as $question) {
-            if (questions_in_use(array($question->id))) {
-                $DB->set_field('question', 'hidden', 1, array('id' => $question->id));
-            } else {
-                question_delete_question($question->id);
-            }
+        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        foreach ($questionids as $questionid) {
+            question_delete_question($questionid);
         }
         // Delete category, if no questions.
-        if (!$DB->record_exists('question', array('category' => $oldcat), 'id')) {
+        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        if (!$questionids) {
             $this->delete_category($oldcat);
         }
     }
