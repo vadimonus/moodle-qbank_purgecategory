@@ -24,6 +24,10 @@
 
 namespace qbank_purgecategory;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir.'/formslib.php');
+
 use moodleform;
 use stdClass;
 
@@ -72,7 +76,7 @@ class confirm_form extends moodleform {
             $options = array();
             $options['contexts'] = array(\context::instance_by_id($category->contextid));
             $options['top'] = true;
-            $options['nochildrenof'] = "$category->id,$category->contextid";
+            $options['nochildrenof'] = $category->id;
 
             $mform->addElement('questioncategory', 'newcategory', get_string('category', 'question'), $options);
         }
@@ -104,7 +108,7 @@ class confirm_form extends moodleform {
             }
         }
         if (!isset($data['confirm']) || $data['confirm'] != 1) {
-            $errors['confirm'] = get_string('validationconfirm', 'qbank_purgecategory');;
+            $errors['confirm'] = get_string('validationconfirm', 'qbank_purgecategory');
         }
 
         return $errors;
