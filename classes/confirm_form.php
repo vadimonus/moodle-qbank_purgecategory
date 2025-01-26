@@ -29,6 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir.'/formslib.php');
 
 use moodleform;
+use qbank_managecategories\helper as qbank_managecategories_helper;
 use stdClass;
 
 /**
@@ -102,8 +103,9 @@ class confirm_form extends moodleform {
 
         $category = $this->_customdata['category'];
         if ($category->usedquestions != 0) {
-            $top = "0,$category->contextid";
-            if ($data['newcategory'] == $top) {
+            $categoryparts = explode(',', $data['newcategory']);
+            $categoryid = $categoryparts[0];
+            if (qbank_managecategories_helper::question_is_top_category($categoryid)) {
                 $errors['newcategory'] = get_string('validationcategory', 'qbank_purgecategory');
             }
         }
