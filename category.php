@@ -24,12 +24,12 @@
 
 namespace qbank_purgecategory;
 
+require_once("../../../config.php");
+require_once("$CFG->dirroot/question/editlib.php");
+
 use core_question\local\bank\helper as core_question_local_bank_helper;
 use core_question\output\qbank_action_menu;
 use moodle_url;
-
-require_once("../../../config.php");
-require_once("$CFG->dirroot/question/editlib.php");
 
 require_login();
 core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
