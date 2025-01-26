@@ -24,8 +24,6 @@
 
 namespace qbank_purgecategory\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Tool for deleting question category with question and subcategories.
  *
