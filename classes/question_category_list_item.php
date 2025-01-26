@@ -55,19 +55,19 @@ class question_category_list_item extends base_question_category_list_item {
      * @param array $extraargs
      * @return string
      */
-    public function item_html($extraargs = array()): string {
+    public function item_html($extraargs = []): string {
         global $CFG, $OUTPUT;
         $category = $this->item;
 
-        $categoryname = format_string($category->name, true, array('context' => $this->parentlist->context));
+        $categoryname = format_string($category->name, true, ['context' => $this->parentlist->context]);
         $categoryname = html_writer::tag('b', $categoryname);
         $item = "$categoryname ($category->questioncount)";
         $item .= format_text($category->info, $category->infoformat,
-                array('context' => $this->parentlist->context, 'noclean' => true));
+                ['context' => $this->parentlist->context, 'noclean' => true]);
 
         $showpurgebutton = !qbank_managecategories_helper::question_is_only_child_of_top_category_in_context($category->id);
         if ($showpurgebutton) {
-            $params = array();
+            $params = [];
             $params['purge'] = $this->id;
             $params['cmid'] = optional_param('cmid', null, PARAM_INT);
             $params['courseid'] = optional_param('courseid', null, PARAM_INT);
@@ -77,7 +77,7 @@ class question_category_list_item extends base_question_category_list_item {
             $text = get_string('purgethiscategory', 'qbank_purgecategory');
             $icon = new pix_icon('purge', $text, 'qbank_purgecategory');
             $item .= '&nbsp;';
-            $item .= $OUTPUT->action_link($purgeurl, '', null, array(), $icon);
+            $item .= $OUTPUT->action_link($purgeurl, '', null, [], $icon);
         }
 
         return $item;

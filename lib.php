@@ -55,7 +55,7 @@ function qbank_purgecategory_extend_navigation_course(navigation_node $coursenod
     if (!has_capability('qbank/purgecategory:purgecategory', $context)) {
         return;
     }
-    $url = new moodle_url('/question/bank/purgecategory/category.php', array('courseid' => $context->instanceid));
+    $url = new moodle_url('/question/bank/purgecategory/category.php', ['courseid' => $context->instanceid]);
     $coursenode->add(get_string('qbankpurgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
             null, 'qbankpurgecategory');
 
@@ -68,7 +68,7 @@ function qbank_purgecategory_extend_navigation_course(navigation_node $coursenod
         return;
     }
     $parentnode = $coursenode->parent->get('modulesettings');
-    $url = new moodle_url('/question/bank/purgecategory/category.php', array('cmid' => $context->instanceid));
+    $url = new moodle_url('/question/bank/purgecategory/category.php', ['cmid' => $context->instanceid]);
     $parentnode->add(get_string('qbankpurgecategories', 'qbank_purgecategory'), $url, navigation_node::TYPE_SETTING,
         null, 'qbankpurgecategory');
 }

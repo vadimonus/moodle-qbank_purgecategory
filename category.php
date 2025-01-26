@@ -34,11 +34,11 @@ use moodle_url;
 require_login();
 core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
 
-list($thispageurl, $contexts, $cmid, $cm, $module, $pagevars) = question_edit_setup('categories',
+[$thispageurl, $contexts, $cmid, $cm, $module, $pagevars] = question_edit_setup('categories',
         '/question/bank/purgecategory/category.php');
 
 $url = new moodle_url($thispageurl);
-$url->remove_params(array('cpage'));
+$url->remove_params(['cpage']);
 $PAGE->set_url($url);
 $PAGE->set_title(get_string('purgecategories', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
@@ -49,6 +49,6 @@ $qbankaction = new qbank_action_menu($thispageurl);
 echo $renderer->render($qbankaction);
 
 $qcobject = new question_category_object($pagevars['cpage'], $thispageurl,
-        $contexts->having_cap('qbank/purgecategory:purgecategory'), 0, $pagevars['cat'], 0, array());
+        $contexts->having_cap('qbank/purgecategory:purgecategory'), 0, $pagevars['cat'], 0, []);
 $qcobject->output_edit_lists();
 echo $OUTPUT->footer();

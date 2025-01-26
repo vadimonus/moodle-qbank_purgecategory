@@ -74,8 +74,8 @@ class confirm_form extends moodleform {
         $mform->setType('courseid', PARAM_INT);
 
         if ($category->usedquestions != 0) {
-            $options = array();
-            $options['contexts'] = array(\context::instance_by_id($category->contextid));
+            $options = [];
+            $options['contexts'] = [\context::instance_by_id($category->contextid)];
             $options['top'] = true;
             $options['nochildrenof'] = $category->id;
 

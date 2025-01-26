@@ -65,7 +65,7 @@ class question_category_object extends base_question_category_object {
         $count = 1;
         $paged = false;
         foreach ($this->editlists as $key => $list) {
-            list($paged, $count) = $this->editlists[$key]->list_from_records($paged, $count);
+            [$paged, $count] = $this->editlists[$key]->list_from_records($paged, $count);
         }
     }
 
@@ -79,7 +79,7 @@ class question_category_object extends base_question_category_object {
         echo $OUTPUT->heading(get_string('purgecategories', 'qbank_purgecategory'));
 
         foreach ($this->editlists as $context => $list) {
-            $listhtml = $list->to_html(0, array('str' => $this->str));
+            $listhtml = $list->to_html(0, ['str' => $this->str]);
             if ($listhtml) {
                 $classes = 'boxwidthwide boxaligncenter generalbox questioncategories';
                 $classes .= ' contextlevel' . $list->context->contextlevel;
@@ -104,7 +104,7 @@ class question_category_object extends base_question_category_object {
      */
     public function move_and_purge_category($oldcat, $newcat) {
         global $DB;
-        $subcategories = $DB->get_records('question_categories', array('parent' => $oldcat), 'id');
+        $subcategories = $DB->get_records('question_categories', ['parent' => $oldcat], 'id');
         foreach ($subcategories as $subcategory) {
             $this->move_and_purge_category($subcategory->id, $newcat);
         }
@@ -129,7 +129,7 @@ class question_category_object extends base_question_category_object {
      */
     public function purge_category($oldcat) {
         global $DB;
-        $subcategories = $DB->get_records('question_categories', array('parent' => $oldcat), 'id');
+        $subcategories = $DB->get_records('question_categories', ['parent' => $oldcat], 'id');
         foreach ($subcategories as $subcategory) {
             $this->purge_category($subcategory->id);
         }

@@ -36,16 +36,16 @@ core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
 
 $categoryid = required_param('purge', PARAM_INT);
 
-$category = $DB->get_record('question_categories', array('id' => $categoryid), '*', MUST_EXIST);
+$category = $DB->get_record('question_categories', ['id' => $categoryid], '*', MUST_EXIST);
 $context = context::instance_by_id($category->contextid);
 require_capability('qbank/purgecategory:purgecategory', $context);
 
-$pageparams = array();
+$pageparams = [];
 $pageparams['cmid'] = optional_param('cmid', null, PARAM_INT);
 $pageparams['courseid'] = optional_param('courseid', null, PARAM_INT);
 
 if ($pageparams['cmid']) {
-    list($module, $cm) = get_module_from_cmid($pageparams['cmid']);
+    [$module, $cm] = get_module_from_cmid($pageparams['cmid']);
     $PAGE->set_cm($cm);
 } else if ($pageparams['courseid']) {
     $course = get_course($pageparams['courseid']);
@@ -62,7 +62,7 @@ $PAGE->set_url($url);
 $PAGE->set_title(get_string('confirmpurge', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
-$qcobject = new question_category_object(0, $url, array(), 0, $categoryid, 0, array());
+$qcobject = new question_category_object(0, $url, [], 0, $categoryid, 0, []);
 
 $category->subcategories = helper::get_subcategories_count($category->id);
 $category->totalquestions = helper::get_questions_count($category->id);
@@ -70,7 +70,7 @@ $category->usedquestions = helper::get_used_questions_count($category->id);
 $category->unusedquestions = $category->totalquestions - $category->usedquestions;
 
 $url = new moodle_url('/question/bank/purgecategory/confirm.php');
-$mform = new confirm_form($url, array('category' => $category));
+$mform = new confirm_form($url, ['category' => $category]);
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/question/bank/purgecategory/category.php', $pageparams));
