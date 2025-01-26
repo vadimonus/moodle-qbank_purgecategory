@@ -63,9 +63,9 @@ $PAGE->set_heading($COURSE->fullname);
 
 $qcobject = new question_category_object(0, $url, array(), 0, $categoryid, 0, array());
 
-$category->subcategories = $qcobject->get_subcategories_count($category->id);
-$category->totalquestions = $qcobject->get_questions_count($category->id);
-$category->usedquestions = $qcobject->get_used_questions_count($category->id);
+$category->subcategories = helper::get_subcategories_count($category->id);
+$category->totalquestions = helper::get_questions_count($category->id);
+$category->usedquestions = helper::get_used_questions_count($category->id);
 $category->unusedquestions = $category->totalquestions - $category->usedquestions;
 
 $url = new moodle_url('/question/bank/purgecategory/confirm.php');

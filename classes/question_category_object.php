@@ -93,63 +93,6 @@ class question_category_object extends base_question_category_object {
     }
 
     /**
-     * Returns overall subcategories count in category and all subcategories.
-     *
-     * @param int $categoryid id of category
-     * @return int questions count
-     */
-    public function get_subcategories_count($categoryid) {
-        global $DB;
-
-        $subcategories = $DB->get_records('question_categories', array('parent' => $categoryid), 'id');
-        $count = count($subcategories);
-        foreach ($subcategories as $subcategory) {
-            $count += $this->get_subcategories_count($subcategory->id);
-        }
-        return $count;
-    }
-
-    /**
-     * Returns overall question count in category and all subcategories.
-     *
-     * @param int $categoryid id of category
-     * @return int questions count
-     */
-    public function get_questions_count($categoryid) {
-        global $DB;
-
-        $count = $DB->count_records('question', array('category' => $categoryid));
-        $subcategories = $DB->get_records('question_categories', array('parent' => $categoryid), 'id');
-        foreach ($subcategories as $subcategory) {
-            $count += $this->get_questions_count($subcategory->id);
-        }
-        return $count;
-    }
-
-    /**
-     * Returns used question count in category and all subcategories.
-     *
-     * @param int $categoryid id of category
-     * @return int questions count
-     */
-    public function get_used_questions_count($categoryid) {
-        global $DB;
-
-        $count = 0;
-        $questions = $DB->get_records('question', array('category' => $categoryid), '', 'id');
-        foreach ($questions as $question) {
-            if (questions_in_use(array($question->id))) {
-                $count++;
-            }
-        }
-        $subcategories = $DB->get_records('question_categories', array('parent' => $categoryid), 'id');
-        foreach ($subcategories as $subcategory) {
-            $count += $this->get_used_questions_count($subcategory->id);
-        }
-        return $count;
-    }
-
-    /**
      * Moves used questions to new category. Removes category and all subcategories and all unused questions.
      *
      * @param int $oldcat id of category to delete
