@@ -56,7 +56,7 @@ class question_category_list_item extends base_question_category_list_item {
      * @return string
      */
     public function item_html($extraargs = []): string {
-        global $CFG, $OUTPUT;
+        global $OUTPUT;
         $category = $this->item;
 
         $categoryname = format_string($category->name, true, ['context' => $this->parentlist->context]);
