@@ -45,7 +45,7 @@ $pageparams['cmid'] = optional_param('cmid', null, PARAM_INT);
 $pageparams['courseid'] = optional_param('courseid', null, PARAM_INT);
 
 if ($pageparams['cmid']) {
-    [$module, $cm] = get_module_from_cmid($pageparams['cmid']);
+    [, $cm] = get_module_from_cmid($pageparams['cmid']);
     $PAGE->set_cm($cm);
 } else if ($pageparams['courseid']) {
     $course = get_course($pageparams['courseid']);

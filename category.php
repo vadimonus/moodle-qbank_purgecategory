@@ -34,7 +34,7 @@ use moodle_url;
 require_login();
 core_question_local_bank_helper::require_plugin_enabled('qbank_purgecategory');
 
-[$thispageurl, $contexts, $cmid, $cm, $module, $pagevars] = question_edit_setup('categories',
+[$thispageurl, $contexts, , , , $pagevars] = question_edit_setup('categories',
         '/question/bank/purgecategory/category.php');
 
 $url = new moodle_url($thispageurl);
