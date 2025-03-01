@@ -28,8 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir.'/questionlib.php');
 
-use context;
-use qbank_managecategories\question_category_object as base_question_category_object;
+use core_question\category_manager;
 
 /**
  * Class representing custom question category
@@ -38,7 +37,7 @@ use qbank_managecategories\question_category_object as base_question_category_ob
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class question_category_object extends base_question_category_object {
+class manager extends category_manager {
 
     /**
      * Moves used questions to new category. Removes category and all subcategories and all unused questions.
@@ -53,16 +52,17 @@ class question_category_object extends base_question_category_object {
             $this->move_and_purge_category($subcategory->id, $newcat);
         }
         // Trying to remove all unused question.
-        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        $manager = new category_manager();
+        $questionids = $manager->get_real_question_ids_in_category($oldcat);
         foreach ($questionids as $questionid) {
             question_delete_question($questionid);
         }
         // Move used questions to new category and delete category.
-        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        $questionids = $manager->get_real_question_ids_in_category($oldcat);
         if ($questionids) {
-            $this->move_questions_and_delete_category($oldcat, $newcat);
+            $manager->move_questions_and_delete_category($oldcat, $newcat);
         } else {
-            $this->delete_category($oldcat);
+            $manager->delete_category($oldcat);
         }
     }
 
@@ -78,14 +78,15 @@ class question_category_object extends base_question_category_object {
             $this->purge_category($subcategory->id);
         }
         // Trying to remove all unused question.
-        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        $manager = new category_manager();
+        $questionids = $manager->get_real_question_ids_in_category($oldcat);
         foreach ($questionids as $questionid) {
             question_delete_question($questionid);
         }
         // Delete category, if no questions.
-        $questionids = $this->get_real_question_ids_in_category($oldcat);
+        $questionids = $manager->get_real_question_ids_in_category($oldcat);
         if (!$questionids) {
-            $this->delete_category($oldcat);
+            $manager->delete_category($oldcat);
         }
     }
 

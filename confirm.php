@@ -62,8 +62,6 @@ $PAGE->set_url($url);
 $PAGE->set_title(get_string('confirmpurge', 'qbank_purgecategory'));
 $PAGE->set_heading($COURSE->fullname);
 
-$qcobject = new question_category_object(0, $url, [], 0, $categoryid, 0, []);
-
 $category->subcategories = helper::get_subcategories_count($category->id);
 $category->totalquestions = helper::get_questions_count($category->id);
 $category->usedquestions = helper::get_used_questions_count($category->id);
@@ -77,11 +75,12 @@ if ($mform->is_cancelled()) {
 } else if ($data = $mform->get_data()) {
     require_sesskey();
     if (isset($data->confirm)) {
+        $manager = new manager();
         if ($category->usedquestions != 0) {
             $categoryparts = explode(',', $data->newcategory);
-            $qcobject->move_and_purge_category($category->id, $categoryparts[0]);
+            $manager->move_and_purge_category($category->id, $categoryparts[0]);
         } else {
-            $qcobject->purge_category($category->id);
+            $manager->purge_category($category->id);
         }
     }
     redirect(new moodle_url('/question/bank/purgecategory/category.php', $pageparams));
